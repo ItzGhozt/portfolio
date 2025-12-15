@@ -4,6 +4,8 @@ import { displayDialogue, setCamScale } from "./utils";
 import { createMapScene } from "./scenes/mapScene";
 import { sceneConfigs } from "./scenes/sceneConfig";
 
+const base = '/'; 
+
 // Load sprites from root
 k.loadSprite("player", "/REAL.png", {
   sliceX: 16,

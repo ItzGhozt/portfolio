@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: '/',  
+  base: '/',  // Change to / for custom domain
   build: {
     outDir: 'dist',
     minify: "terser"
