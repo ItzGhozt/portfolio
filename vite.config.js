@@ -1,14 +1,13 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: '/portfolio/',  
+  base: process.env.NODE_ENV === 'production' ? '/portfolio/' : '/',
   build: {
     outDir: 'dist',
-    assetsDir: 'assets',
-    minify: 'terser',
+    minify: "terser"
   },
   server: {
     port: 5173,
     open: true
   }
-})
+});
