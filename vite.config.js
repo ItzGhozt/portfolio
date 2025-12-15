@@ -1,8 +1,14 @@
-import { defineConfig } from "vite";
+import { defineConfig } from 'vite'
 
 export default defineConfig({
-    base: "./",
-    build: {
-        minify: "terser"
-    }
-});
+  base: '/portfolio/',  
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    minify: 'terser',
+  },
+  server: {
+    port: 5173,
+    open: true
+  }
+})
