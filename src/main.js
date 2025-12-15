@@ -4,11 +4,8 @@ import { displayDialogue, setCamScale } from "./utils";
 import { createMapScene } from "./scenes/mapScene";
 import { sceneConfigs } from "./scenes/sceneConfig";
 
-// Get the base URL from Vite
-const base = import.meta.env.BASE_URL;
-
-// Load sprites with base URL
-k.loadSprite("player", `${base}REAL.png`, {
+// Load sprites from root
+k.loadSprite("player", "/REAL.png", {
   sliceX: 16,
   sliceY: 1,
   anims: {
@@ -23,7 +20,7 @@ k.loadSprite("player", `${base}REAL.png`, {
   },
 });
 
-k.loadSprite("map", `${base}map.png`);
+k.loadSprite("map", "/map.png");
 k.setBackground(k.Color.fromHex("#588157"));
 
 // Create all scenes
