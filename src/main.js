@@ -35,36 +35,29 @@ Object.values(sceneConfigs).forEach(config => {
 // Start game
 k.go("main");
 
-// Music setup - start paused
-let music = null;
-let isMusicPlaying = false;
-
 // Get UI elements
 const musicToggle = document.getElementById("music-toggle");
 const volumeSlider = document.getElementById("volume-slider");
 
+// Music setup - auto-play on load
+const music = k.play("bgMusic", {
+  volume: 0.3,
+  loop: true,
+});
+
+let isMusicPlaying = true;
+
 // Music toggle functionality
 if (musicToggle) {
   musicToggle.addEventListener("click", () => {
-    if (!music) {
-      // First time - create and play the music
-      music = k.play("bgMusic", {
-        volume: volumeSlider.value / 100,
-        loop: true,
-      });
-      isMusicPlaying = true;
-      musicToggle.textContent = "🔇 Stop Music";
+    if (isMusicPlaying) {
+      music.pause();
+      musicToggle.textContent = "🔊 Play Music";
+      isMusicPlaying = false;
     } else {
-      // Toggle play/pause
-      if (isMusicPlaying) {
-        music.pause();
-        musicToggle.textContent = "🔊 Play Music";
-        isMusicPlaying = false;
-      } else {
-        music.play();
-        musicToggle.textContent = "🔇 Stop Music";
-        isMusicPlaying = true;
-      }
+      music.play();
+      musicToggle.textContent = "🔇 Stop Music";
+      isMusicPlaying = true;
     }
   });
 }
@@ -73,8 +66,6 @@ if (musicToggle) {
 if (volumeSlider) {
   volumeSlider.addEventListener("input", (e) => {
     const volume = e.target.value / 100;
-    if (music) {
-      music.volume = volume;
-    }
+    music.volume = volume;
   });
 }
