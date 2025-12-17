@@ -53,16 +53,16 @@ if (musicToggle) {
         loop: true,
       });
       isMusicPlaying = true;
-      musicToggle.textContent = "🔊 Music: ON";
+      musicToggle.textContent = "🔇 Stop Music";
     } else {
       // Toggle play/pause
       if (isMusicPlaying) {
         music.pause();
-        musicToggle.textContent = "🔇 Music: OFF";
+        musicToggle.textContent = "🔊 Play Music";
         isMusicPlaying = false;
       } else {
         music.play();
-        musicToggle.textContent = "🔊 Music: ON";
+        musicToggle.textContent = "🔇 Stop Music";
         isMusicPlaying = true;
       }
     }
