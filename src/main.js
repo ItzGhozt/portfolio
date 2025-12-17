@@ -4,9 +4,7 @@ import { displayDialogue, setCamScale } from "./utils";
 import { createMapScene } from "./scenes/mapScene";
 import { sceneConfigs } from "./scenes/sceneConfig";
 
-const base = '/'; 
-
-// Load sprites from root
+// Load sprites
 k.loadSprite("player", "/REAL.png", {
   sliceX: 16,
   sliceY: 1,
@@ -23,6 +21,10 @@ k.loadSprite("player", "/REAL.png", {
 });
 
 k.loadSprite("map", "/map.png");
+
+// Load background music
+k.loadSound("bgMusic", "/her.mp3");
+
 k.setBackground(k.Color.fromHex("#588157"));
 
 // Create all scenes
@@ -32,3 +34,47 @@ Object.values(sceneConfigs).forEach(config => {
 
 // Start game
 k.go("main");
+
+// Music setup - start paused
+let music = null;
+let isMusicPlaying = false;
+
+// Get UI elements
+const musicToggle = document.getElementById("music-toggle");
+const volumeSlider = document.getElementById("volume-slider");
+
+// Music toggle functionality
+if (musicToggle) {
+  musicToggle.addEventListener("click", () => {
+    if (!music) {
+      // First time - create and play the music
+      music = k.play("bgMusic", {
+        volume: volumeSlider.value / 100,
+        loop: true,
+      });
+      isMusicPlaying = true;
+      musicToggle.textContent = "🔊 Music: ON";
+    } else {
+      // Toggle play/pause
+      if (isMusicPlaying) {
+        music.pause();
+        musicToggle.textContent = "🔇 Music: OFF";
+        isMusicPlaying = false;
+      } else {
+        music.play();
+        musicToggle.textContent = "🔊 Music: ON";
+        isMusicPlaying = true;
+      }
+    }
+  });
+}
+
+// Volume control
+if (volumeSlider) {
+  volumeSlider.addEventListener("input", (e) => {
+    const volume = e.target.value / 100;
+    if (music) {
+      music.volume = volume;
+    }
+  });
+}
