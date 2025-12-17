@@ -39,7 +39,7 @@ k.go("main");
 const musicToggle = document.getElementById("music-toggle");
 const volumeSlider = document.getElementById("volume-slider");
 
-// Music setup - auto-play on load
+// Start music immediately
 const music = k.play("bgMusic", {
   volume: 0.3,
   loop: true,
@@ -48,24 +48,27 @@ const music = k.play("bgMusic", {
 let isMusicPlaying = true;
 
 // Music toggle functionality
-if (musicToggle) {
-  musicToggle.addEventListener("click", () => {
-    if (isMusicPlaying) {
-      music.pause();
-      musicToggle.textContent = "🔊 Play Music";
-      isMusicPlaying = false;
-    } else {
-      music.play();
-      musicToggle.textContent = "🔇 Stop Music";
-      isMusicPlaying = true;
-    }
-  });
-}
+musicToggle.addEventListener("click", () => {
+  console.log("Button clicked! Current state:", isMusicPlaying); // Debug log
+  
+  if (isMusicPlaying) {
+    // Music is playing, so pause it
+    music.paused = true;
+    musicToggle.textContent = "🔊 Play Music";
+    isMusicPlaying = false;
+    console.log("Music paused");
+  } else {
+    // Music is paused, so play it
+    music.paused = false;
+    musicToggle.textContent = "🔇 Stop Music";
+    isMusicPlaying = true;
+    console.log("Music playing");
+  }
+});
 
 // Volume control
-if (volumeSlider) {
-  volumeSlider.addEventListener("input", (e) => {
-    const volume = e.target.value / 100;
-    music.volume = volume;
-  });
-}
+volumeSlider.addEventListener("input", (e) => {
+  const volume = e.target.value / 100;
+  music.volume = volume;
+  console.log("Volume changed to:", volume);
+});
